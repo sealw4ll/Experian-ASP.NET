@@ -30,6 +30,7 @@ namespace dotnetMVC.Services
 
         public async Task AddOrUpdateCustomerAsync(Customer customer)
         {
+            // check if creating new or existing customer
             if (customer.Id == 0)
             {
                 await _customerRepository.CreateCustomerAsync(customer);

@@ -10,11 +10,11 @@ namespace dotnetMVC.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "First name is required.")]
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "First name cannot exceed 20 characters.")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "First Name must be between 3-20 characters.")]
         public required string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last name is required.")]
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "Last name cannot exceed 20 characters.")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Last Name must be between 3-20 characters.")]
         public required string LastName { get; set; }
 
         //[Display(Name = "Email address")]

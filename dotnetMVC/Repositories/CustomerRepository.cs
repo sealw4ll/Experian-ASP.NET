@@ -48,6 +48,7 @@ namespace dotnetMVC.Repositories
 
         public List<Customer> SearchCustomers(string searchString)
         {
+            // customer search logic
             var searchTerms = searchString.ToUpper().Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var query = _context.Customers.AsEnumerable();
 

@@ -1,4 +1,8 @@
-﻿using dotnetMVC.Models;
+﻿using System.Security.Cryptography;
+using System.Text;
+using dotnetMVC.Interfaces;
+using dotnetMVC.Models;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
 
 namespace dotnetMVC.Data;
@@ -11,10 +15,10 @@ public static class SeedData
             serviceProvider.GetRequiredService<
                 DbContextOptions<CustomerDbContext>>()))
         {
-            // Look for any movies.
+            // seed Customers
             if (context.Customers.Any())
             {
-                return;   // DB has been seeded
+                return;
             }
             context.Customers.AddRange(
                 new Customer
@@ -46,6 +50,24 @@ public static class SeedData
                     Id = 4
                 }
             );
+
+            // seed Users
+            if (!context.Users.Any())
+            {
+                var keyBytes = Encoding.UTF8.GetBytes("jdoZApqLuH");
+                using var hmac = new HMACSHA256(keyBytes);
+                context.Users.AddRange(
+                    new User
+                    {
+                        Username = "user",
+                        PasswordHash = Convert.ToBase64String(
+                            hmac.ComputeHash(Encoding.UTF8.GetBytes("123"))
+                        ),
+                        Role = "Admin"
+                    }
+                );
+            }
+
             context.SaveChanges();
         }
     }
